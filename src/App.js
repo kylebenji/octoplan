@@ -1,6 +1,7 @@
 import Header from "./components/Header.js";
 import ToDoList from "./components/ToDoList.js";
 import Information from "./components/Information.js";
+import Footer from "./components/Footer.js";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <ToDoList />
         <Information />
       </div>
+      <Footer />
     </div>
   );
 }
