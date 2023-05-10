@@ -6,16 +6,6 @@
       "src": "./octopus.png",
       "sizes": "64x64",
       "type": "image/png"
-    },
-    {
-      "src": "./octopus.png",
-      "type": "image/png",
-      "sizes": "64x64"
-    },
-    {
-      "src": "./octopus.png",
-      "type": "image/png",
-      "sizes": "64x64"
     }
   ],
   "start_url": ".",
