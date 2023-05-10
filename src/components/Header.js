@@ -1,7 +1,14 @@
 export default function Header() {
   return (
     <header>
-      <h1>Octoplan</h1>
+      <h1>
+        <img
+          className="octopus-icon"
+          src={require("../octopus.png")}
+          alt="octopus icon"
+        ></img>
+        Octoplan
+      </h1>
     </header>
   );
 }
