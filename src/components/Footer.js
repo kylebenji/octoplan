@@ -8,7 +8,7 @@ const dateFormatOptions = {
 };
 export default function Footer() {
   return (
-    <footer className="text-end">
+    <footer className="container text-end footer">
       <p>{new Intl.DateTimeFormat("en-US", dateFormatOptions).format()}</p>
     </footer>
   );

@@ -3,7 +3,7 @@ import DailyInfo from "./Info/DailyInfo";
 
 export default function Information() {
   return (
-    <div className="container col-6">
+    <div className="col-md-6">
       <TaskSpecifics />
       <DailyInfo />
     </div>

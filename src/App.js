@@ -5,9 +5,9 @@ import Footer from "./components/Footer.js";
 
 function App() {
   return (
-    <div className="App text-center">
+    <div className="App text-center container">
       <Header />
-      <div className="row">
+      <div className="row gx-3">
         <ToDoList />
         <Information />
       </div>

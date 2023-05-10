@@ -1,3 +1,4 @@
+$primary: rgb(0, 81, 128);
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -14,6 +15,20 @@ code {
     monospace;
 }
 
-* {
-  border: 1px solid black;
+.octoplan-container {
+  @extend .border;
+  @extend .border-2;
+  @extend .border-primary;
+  @extend .rounded-2;
+  @extend .container;
+  @extend .shadow-sm;
+  @extend .mt-3;
+}
+
+.to-do-list-container {
+  height: 84vh;
+}
+
+.octoplan-small-container {
+  height: 41.2vh;
 }

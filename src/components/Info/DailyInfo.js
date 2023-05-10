@@ -1,7 +1,13 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
+
 export default function DailyInfo() {
   return (
-    <div className="container">
-      <h3>Daily Info</h3>
+    <div className="octoplan-container octoplan-small-container">
+      <h3>
+        <FontAwesomeIcon icon={faCalendarDays} size="sm" />
+        Daily Info
+      </h3>
     </div>
   );
 }
