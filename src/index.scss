@@ -1,4 +1,6 @@
 $primary: rgb(0, 81, 128);
+$list-group-active-bg: rgb(125, 155, 255);
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -35,4 +37,8 @@ code {
 
 .octopus-icon {
   height: 48px;
+}
+
+.completed {
+  filter: brightness(75%);
 }

@@ -5,7 +5,7 @@ import Footer from "./components/Footer.js";
 
 function App() {
   return (
-    <div className="App text-center container">
+    <div className="App container">
       <Header />
       <div className="row gx-3">
         <ToDoList />
