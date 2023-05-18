@@ -27,7 +27,7 @@ function ToDoItem({ item }) {
         checked={item.completed}
         onChange={() => dispatch(toggleToDo({ id: item.id }))}
       ></input>
-      <p className="mb-0 list-item-text">{item.text}</p>
+      <p className="mb-0 list-item-text">{item.name}</p>
     </button>
   );
 }
@@ -41,8 +41,7 @@ export default function ToDoList() {
       <div className="octoplan-container to-do-list-container">
         <header className="row text-center">
           <h2 className="">
-            <FontAwesomeIcon icon={faBars} size="sm" />
-            ToDoList
+            <FontAwesomeIcon icon={faBars} size="sm" /> ToDoList
           </h2>
         </header>
         <ul className="list-group">

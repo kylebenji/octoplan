@@ -18,13 +18,15 @@ code {
 }
 
 .octoplan-container {
-  @extend .border;
-  @extend .border-2;
-  @extend .border-primary;
-  @extend .rounded-2;
-  @extend .container;
-  @extend .shadow-sm;
-  @extend .mt-3;
+  @extend .border,
+    .border-2,
+    .border-primary,
+    .rounded-2,
+    .container,
+    .shadow-sm,
+    .mt-3;
+
+  position: relative;
 }
 
 .to-do-list-container {
@@ -45,4 +47,33 @@ code {
 
 .list-group-item .list-item-text {
   margin-left: 10px;
+}
+
+.form-part {
+  @extend .row;
+  margin-bottom: 5px;
+
+  label {
+    @extend .col-2;
+  }
+
+  input,
+  textarea,
+  button {
+    @extend .col;
+  }
+
+  .dropdown {
+    @extend .col-3;
+  }
+
+  .dropdown-menu {
+    min-width: 5rem;
+  }
+}
+
+#task-buttons {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }

@@ -16,7 +16,7 @@ const toDoSlice = createSlice({
     list: [
       {
         id: 0,
-        text: "Wash Dog",
+        name: "Wash Dog",
         completed: false,
         date: new Date().toDateString(),
         priority: config.MID_PRIORITY,
@@ -24,7 +24,7 @@ const toDoSlice = createSlice({
       },
       {
         id: 1,
-        text: "Feed Turtle",
+        name: "Feed Turtle",
         completed: true,
         date: new Date().toDateString(),
         priority: config.HIGH_PRIORITY,
@@ -37,11 +37,12 @@ const toDoSlice = createSlice({
     submitToDo: (state, action) => {
       state.list.push({
         id: state.idCounter,
-        text: action.text,
-        date: action.date,
-        priority: action.priority,
-        notes: "",
+        name: action.payload?.name,
+        date: action.payload?.date,
+        priority: +action.payload?.priority,
+        notes: action.payload.notes,
       });
+      state.active = state.idCounter;
       state.idCounter++;
     },
     //editing an existing task

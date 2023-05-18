@@ -13,7 +13,7 @@ import { TASK_DETAILS, TASK_EDIT } from "../config";
 const detailsSlice = createSlice({
   name: "details",
   initialState: {
-    activeView: TASK_DETAILS,
+    activeView: TASK_EDIT,
   },
   reducers: {
     openDetails: (state, action) => {
