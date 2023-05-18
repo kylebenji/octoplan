@@ -12,7 +12,6 @@ import { openDetails } from "../store/detailsSlice";
 function ToDoItem({ item }) {
   const active = useSelector(selectActive);
   const dispatch = useDispatch();
-  console.log(item.id);
   return (
     <button
       className={`d-flex align-items-center list-group-item list-group-item-action${
@@ -28,7 +27,7 @@ function ToDoItem({ item }) {
         checked={item.completed}
         onChange={() => dispatch(toggleToDo({ id: item.id }))}
       ></input>
-      <p className="mb-0">{item.text}</p>
+      <p className="mb-0 list-item-text">{item.text}</p>
     </button>
   );
 }

@@ -40,5 +40,9 @@ code {
 }
 
 .completed {
-  filter: brightness(75%);
+  filter: brightness(85%);
+}
+
+.list-group-item .list-item-text {
+  margin-left: 10px;
 }
