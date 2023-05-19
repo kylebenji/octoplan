@@ -8,25 +8,28 @@ select task (switch flag to change to details view, change current selected task
 */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { TASK_DETAILS, TASK_EDIT } from "../config";
+import * as config from "../config";
 
 const detailsSlice = createSlice({
   name: "details",
   initialState: {
-    activeView: TASK_EDIT,
+    activeView: config.TASK_DETAILS,
   },
   reducers: {
     openDetails: (state, action) => {
-      state.activeView = TASK_DETAILS;
+      state.activeView = config.TASK_DETAILS;
     },
     openEdit: (state, action) => {
-      state.activeView = TASK_EDIT;
+      state.activeView = config.TASK_EDIT;
+    },
+    openCreate: (state, action) => {
+      state.activeView = config.TASK_CREATE;
     },
   },
 });
 //Views Changes
 
-export const { openDetails, openEdit } = detailsSlice.actions;
+export const { openDetails, openEdit, openCreate } = detailsSlice.actions;
 
 export default detailsSlice.reducer;
 

@@ -12,7 +12,7 @@ const toDoSlice = createSlice({
   name: "todos",
   initialState: {
     idCounter: 2,
-    active: 0,
+    active: -1,
     list: [
       {
         id: 0,
@@ -38,7 +38,7 @@ const toDoSlice = createSlice({
       state.list.push({
         id: state.idCounter,
         name: action.payload?.name,
-        date: action.payload?.date,
+        date: new Date(action.payload?.date).toDateString(),
         priority: +action.payload?.priority,
         notes: action.payload.notes,
       });
@@ -48,11 +48,18 @@ const toDoSlice = createSlice({
     //editing an existing task
     editToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
-      //   state.list[todoInd] = updateObject(state.list[todoInd], {
-      //     text: action.text,
-      //     date: action.date,
-      //     priority: action.priority,
-      //   });
+      console.log(todoInd);
+      state.list[todoInd] = Object.assign({}, state.list[todoInd], {
+        name: action.payload.name,
+        date: new Date(action.payload?.date).toDateString(),
+        priority: action.payload.priority,
+        notes: action.payload.notes,
+      });
+    },
+    //deleting a task
+    deleteToDo: (state, action) => {
+      let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
+      state.list.splice(todoInd, 1);
     },
     //setting a tasks completed flag
     toggleToDo: (state, action) => {
@@ -66,7 +73,7 @@ const toDoSlice = createSlice({
   },
 });
 
-export const { submitToDo, editToDo, toggleToDo, changeActive } =
+export const { submitToDo, editToDo, deleteToDo, toggleToDo, changeActive } =
   toDoSlice.actions;
 
 export default toDoSlice.reducer;

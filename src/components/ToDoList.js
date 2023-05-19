@@ -7,10 +7,12 @@ import {
   changeActive,
   toggleToDo,
 } from "../store/toDoSlice";
-import { openDetails } from "../store/detailsSlice";
+import { openDetails, selectView, openCreate } from "../store/detailsSlice";
+import * as config from "../config";
 
 function ToDoItem({ item }) {
   const active = useSelector(selectActive);
+  const view = useSelector(selectView);
   const dispatch = useDispatch();
   return (
     <button
@@ -18,8 +20,8 @@ function ToDoItem({ item }) {
         active === item.id ? " active" : ""
       }${item.completed ? " completed" : ""}`}
       onClick={() => {
-        dispatch(openDetails());
-        dispatch(changeActive({ id: item.id }));
+        if (view !== config.TASK_DETAILS) dispatch(openDetails());
+        if (active !== item.id) dispatch(changeActive({ id: item.id }));
       }}
     >
       <input
@@ -36,6 +38,11 @@ export default function ToDoList() {
   const list = useSelector(selectList);
   const dispatch = useDispatch();
 
+  const handleNewTask = () => {
+    dispatch(changeActive({ id: -1 }));
+    dispatch(openCreate());
+  };
+
   return (
     <div className="col-md-6">
       <div className="octoplan-container to-do-list-container">
@@ -49,6 +56,13 @@ export default function ToDoList() {
             return <ToDoItem item={el} key={el.id} />;
           })}
         </ul>
+        <button
+          id="btn-new-task"
+          className="btn btn-sm btn-primary"
+          onClick={handleNewTask}
+        >
+          +
+        </button>
       </div>
     </div>
   );
