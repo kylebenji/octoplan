@@ -3,8 +3,6 @@ const dateFormatOptions = {
   month: "long",
   day: "numeric",
   weekday: "long",
-  hour: "numeric",
-  minute: "numeric",
 };
 export default function Footer() {
   return (

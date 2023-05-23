@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="text-center">
+    <header className="text-center header">
       <h1>
         <img
           className="octopus-icon"

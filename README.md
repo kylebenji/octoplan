@@ -6,7 +6,7 @@ Octoplan is a to-do list app that I am creating as practice using React-Redux to
 
 Octoplan uses a variety of tech in its code, including:
 
-- React and some accompanying libraries
+- React and accompanying libraries
 - Redux
 - Bootstrap
 - SASS

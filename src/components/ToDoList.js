@@ -29,7 +29,7 @@ function ToDoItem({ item }) {
         checked={item.completed}
         onChange={() => dispatch(toggleToDo({ id: item.id }))}
       ></input>
-      <p className="mb-0 list-item-text">{item.name}</p>
+      <p className="list-item-text">{item.name}</p>
     </button>
   );
 }

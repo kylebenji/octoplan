@@ -8,17 +8,20 @@ check off task
 import { createSlice } from "@reduxjs/toolkit";
 import * as config from "../config.js";
 
+const today = new Date().getTime();
+
 const toDoSlice = createSlice({
   name: "todos",
   initialState: {
     idCounter: 2,
     active: -1,
+    date: today,
     list: [
       {
         id: 0,
         name: "Wash Dog",
         completed: false,
-        date: new Date().toDateString(),
+        date: new Date(today - 86400000).toDateString(),
         priority: config.MID_PRIORITY,
         notes: "Wash dog with flea shampoo",
       },
@@ -26,7 +29,7 @@ const toDoSlice = createSlice({
         id: 1,
         name: "Feed Turtle",
         completed: true,
-        date: new Date().toDateString(),
+        date: new Date(today).toDateString(),
         priority: config.HIGH_PRIORITY,
         notes: "Feed turtle veggies with a hint of spice",
       },
@@ -78,5 +81,7 @@ export const { submitToDo, editToDo, deleteToDo, toggleToDo, changeActive } =
 
 export default toDoSlice.reducer;
 
+//selectors
 export const selectList = (state) => state.todos.list;
 export const selectActive = (state) => state.todos.active;
+export const selectDate = (state) => state.todos.date;
