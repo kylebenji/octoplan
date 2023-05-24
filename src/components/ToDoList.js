@@ -9,6 +9,36 @@ import {
 } from "../store/toDoSlice";
 import { openDetails, selectView, openCreate } from "../store/detailsSlice";
 import * as config from "../config";
+import { selectFilters, toggleFilter } from "../store/filtersSlice";
+
+function OptionsBar({ filters }) {
+  const dispatch = useDispatch();
+
+  return (
+    <div className="options-bar">
+      <div className="dropdown filter-dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="outside"
+          type="button"
+        >
+          Filters
+        </button>
+        <div className="dropdown-menu">
+          <button
+            className="dropdown-item"
+            type="button"
+            onClick={() => dispatch(toggleFilter({ filter: "completed" }))}
+          >
+            <input type="checkbox" checked={filters.completed} readOnly></input>{" "}
+            Completed
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ToDoItem({ item }) {
   const active = useSelector(selectActive);
@@ -36,7 +66,16 @@ function ToDoItem({ item }) {
 
 export default function ToDoList() {
   const list = useSelector(selectList);
+  const filters = useSelector(selectFilters);
   const dispatch = useDispatch();
+
+  const filteredList = list.filter((task) => {
+    let shouldShow = true;
+    if (!filters.completed) {
+      if (task.completed) shouldShow = false;
+    }
+    return shouldShow;
+  });
 
   const handleNewTask = () => {
     dispatch(changeActive({ id: -1 }));
@@ -51,8 +90,9 @@ export default function ToDoList() {
             <FontAwesomeIcon icon={faBars} size="sm" /> ToDoList
           </h2>
         </header>
+        <OptionsBar filters={filters} />
         <ul className="list-group">
-          {list.map((el) => {
+          {filteredList.map((el) => {
             return <ToDoItem item={el} key={el.id} />;
           })}
         </ul>
