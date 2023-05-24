@@ -12,6 +12,7 @@ Octoplan is a to-do list app that I am creating as practice using React-Redux to
   - Total tasks for the day
 - Task filters
 - Sorting (date, priority, etc.)
+- Tasks, filters, and sorting are saved to LocalStorage so you can continue where you left off when you return.
 
 ## Future Functionality
 
