@@ -110,11 +110,10 @@ function EditTask({ view }) {
           <Select
             options={prioritySelectOptions}
             className="col-3"
-            placeholder="Priority"
             defaultValue={
               task?.priority
                 ? { value: task.priority, label: formatPriority(task.priority) }
-                : {}
+                : { value: "", label: "Priority" }
             }
             onChange={handlePriorityChange}
           />
