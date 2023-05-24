@@ -15,18 +15,23 @@ export const filterSlice = createSlice({
   name: "filters",
   initialState: {
     completed: true,
+    sortBy: "None",
   },
   reducers: {
     toggleFilter: (state, action) => {
       const filter = action.payload.filter;
       state[filter] = !state[filter];
     },
+    setSortBy: (state, action) => {
+      state.sortBy = action.payload.sortBy;
+    },
   },
 });
 
 //action creators
-export const { toggleFilter } = filterSlice.actions;
+export const { toggleFilter, setSortBy } = filterSlice.actions;
 
+//selectors
 export const selectFilters = (state) => state.filters;
 
 export default filterSlice.reducer;

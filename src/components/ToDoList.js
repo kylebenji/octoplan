@@ -9,13 +9,13 @@ import {
 } from "../store/toDoSlice";
 import { openDetails, selectView, openCreate } from "../store/detailsSlice";
 import * as config from "../config";
-import { selectFilters, toggleFilter } from "../store/filtersSlice";
+import { selectFilters, setSortBy, toggleFilter } from "../store/filtersSlice";
 
-function OptionsBar({ filters }) {
+function OptionsBar({ filters, sort }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="options-bar">
+    <div className="options-bar d-flex">
       <div className="dropdown filter-dropdown">
         <button
           className="btn btn-secondary dropdown-toggle"
@@ -36,6 +36,31 @@ function OptionsBar({ filters }) {
           </button>
         </div>
       </div>
+      <div className="dropdown sort-dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle"
+          data-bs-toggle="dropdown"
+          type="button"
+        >
+          Sort
+        </button>
+        <div className="dropdown-menu">
+          {Object.entries(sort.sortStates).map((sortType) => {
+            return (
+              <button
+                key={sortType[0]}
+                className={`dropdown-item ${
+                  sortType[1] === filters.sortBy ? "active" : ""
+                }`}
+                type="button"
+                onClick={() => dispatch(setSortBy({ sortBy: sortType[1] }))}
+              >
+                {sortType[1]}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -44,6 +69,7 @@ function ToDoItem({ item }) {
   const active = useSelector(selectActive);
   const view = useSelector(selectView);
   const dispatch = useDispatch();
+
   return (
     <button
       className={`d-flex align-items-center list-group-item list-group-item-action${
@@ -69,6 +95,15 @@ export default function ToDoList() {
   const filters = useSelector(selectFilters);
   const dispatch = useDispatch();
 
+  //sorting
+  const sortStates = {
+    none: "None",
+    date: "Date",
+    priorityHL: "Priority (H-L)",
+    priorityLH: "Priority (L-H)",
+  };
+
+  //apply filters
   const filteredList = list.filter((task) => {
     let shouldShow = true;
     if (!filters.completed) {
@@ -77,6 +112,7 @@ export default function ToDoList() {
     return shouldShow;
   });
 
+  //creating new task
   const handleNewTask = () => {
     dispatch(changeActive({ id: -1 }));
     dispatch(openCreate());
@@ -90,7 +126,7 @@ export default function ToDoList() {
             <FontAwesomeIcon icon={faBars} size="sm" /> ToDoList
           </h2>
         </header>
-        <OptionsBar filters={filters} />
+        <OptionsBar filters={filters} sort={{ sortStates }} />
         <ul className="list-group">
           {filteredList.map((el) => {
             return <ToDoItem item={el} key={el.id} />;
