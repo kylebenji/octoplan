@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { WEATHER_API_URL } from "../../config";
+import { WEATHER_API_URL, WEATHER_DAYS_SHOW } from "../../config";
+import {
+  faCloudShowersHeavy,
+  faTemperatureHigh,
+  faTemperatureLow,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function WeatherDay({ day }) {
   const dateArr = day.time.split("-"); //split input string into component parts
@@ -7,10 +13,18 @@ function WeatherDay({ day }) {
   const date = new Date(...dateArr);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;
   return (
-    <div className="day border border-primary">
+    <div className="weather-day border border-primary p-1">
       <p>{dateString}</p>
-      <p>High: {day.temperature_2m_max}</p>
-      <p>Low: {day.temperature_2m_min}</p>
+      <p>
+        <FontAwesomeIcon icon={faTemperatureHigh} /> {day.temperature_2m_max}
+      </p>
+      <p>
+        <FontAwesomeIcon icon={faTemperatureLow} /> {day.temperature_2m_min}
+      </p>
+      <p>
+        <FontAwesomeIcon icon={faCloudShowersHeavy} />{" "}
+        {day.precipitation_probability_mean}%
+      </p>
     </div>
   );
 }
@@ -26,7 +40,7 @@ export default function Weather() {
       pos.coords.latitude +
       "&longitude=" +
       pos.coords.longitude +
-      "&daily=temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit";
+      "&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&timezone=auto&temperature_unit=fahrenheit";
     return url;
   };
 
@@ -37,6 +51,7 @@ export default function Weather() {
     const days = data.daily.time.map((time, i) => {
       return Object.fromEntries(dailyData.map((data) => [data[0], data[1][i]]));
     });
+    days.splice(WEATHER_DAYS_SHOW);
     return days;
   }
 
@@ -68,7 +83,7 @@ export default function Weather() {
   return (
     <div>
       <h5>Forecast:</h5>
-      <div className="d-flex justify-content-between calendar">
+      <div className="d-flex calendar">
         {weather.length
           ? weather.map((day, i) => <WeatherDay key={"day-" + i} day={day} />)
           : ""}

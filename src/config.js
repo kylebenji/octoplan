@@ -7,3 +7,4 @@ export const TASK_EDIT = "TASK_EDIT";
 export const TASK_CREATE = "TASK_CREATE";
 
 export const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
+export const WEATHER_DAYS_SHOW = 5;
