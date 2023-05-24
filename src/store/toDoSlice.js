@@ -10,7 +10,6 @@ import * as config from "../config.js";
 import { datesAreOnSameDay, parseInputDate } from "../helpers.js";
 
 const getActionDate = (date) => {
-  console.log(date);
   return date ? parseInputDate(date).toDateString() : "";
 };
 
@@ -58,7 +57,6 @@ const toDoSlice = createSlice({
     //editing an existing task
     editToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
-      console.log(todoInd);
       state.list[todoInd] = Object.assign({}, state.list[todoInd], {
         name: action.payload.name,
         date: getActionDate(action.payload.date),

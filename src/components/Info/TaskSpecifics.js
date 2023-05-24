@@ -47,8 +47,6 @@ function EditTask({ view }) {
     formJson.priority = selectedPriority;
     formJson.id = taskID;
 
-    console.log(formJson);
-
     if (view === config.TASK_CREATE) {
       dispatch(submitToDo(formJson));
     }

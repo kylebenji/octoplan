@@ -7,13 +7,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { parseInputDate } from "../../helpers";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 function WeatherDay({ day }) {
   const date = parseInputDate(day.time);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;
   return (
     <div className="weather-day border border-primary p-1">
-      <p>{dateString}</p>
+      <p>
+        <FontAwesomeIcon icon={faCalendar} /> {dateString}
+      </p>
       <p>
         <FontAwesomeIcon icon={faTemperatureHigh} /> {day.temperature_2m_max}
       </p>
