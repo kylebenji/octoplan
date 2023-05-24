@@ -6,11 +6,10 @@ import {
   faTemperatureLow,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { parseInputDate } from "../../helpers";
 
 function WeatherDay({ day }) {
-  const dateArr = day.time.split("-"); //split input string into component parts
-  dateArr[1] = parseInt(dateArr[1], 10) - 1; //making the month value into an indexed value for the Date constructor
-  const date = new Date(...dateArr);
+  const date = parseInputDate(day.time);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;
   return (
     <div className="weather-day border border-primary p-1">

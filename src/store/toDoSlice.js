@@ -7,7 +7,12 @@ check off task
 
 import { createSlice } from "@reduxjs/toolkit";
 import * as config from "../config.js";
-import { datesAreOnSameDay } from "../helpers.js";
+import { datesAreOnSameDay, parseInputDate } from "../helpers.js";
+
+const getActionDate = (date) => {
+  console.log(date);
+  return date ? parseInputDate(date).toDateString() : "";
+};
 
 const toDoSlice = createSlice({
   name: "todos",
@@ -41,9 +46,7 @@ const toDoSlice = createSlice({
       state.list.push({
         id: state.idCounter,
         name: action.payload?.name,
-        date: action.payload?.date
-          ? new Date(action.payload?.date).toDateString()
-          : "",
+        date: getActionDate(action.payload.date),
         priority: action.payload.priority
           ? +action.payload.priority
           : config.MID_PRIORITY,
@@ -58,7 +61,7 @@ const toDoSlice = createSlice({
       console.log(todoInd);
       state.list[todoInd] = Object.assign({}, state.list[todoInd], {
         name: action.payload.name,
-        date: new Date(action.payload?.date).toDateString(),
+        date: getActionDate(action.payload.date),
         priority: action.payload.priority
           ? action.payload.priority
           : config.MID_PRIORITY,

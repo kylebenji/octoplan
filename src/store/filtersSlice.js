@@ -15,6 +15,7 @@ export const filterSlice = createSlice({
   name: "filters",
   initialState: {
     completed: true,
+    today: false,
     sortBy: "None",
   },
   reducers: {

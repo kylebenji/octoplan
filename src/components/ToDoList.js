@@ -10,6 +10,7 @@ import {
 import { openDetails, selectView, openCreate } from "../store/detailsSlice";
 import * as config from "../config";
 import { selectFilters, setSortBy, toggleFilter } from "../store/filtersSlice";
+import { datesAreOnSameDay } from "../helpers";
 
 function OptionsBar({ filters, sort }) {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ function OptionsBar({ filters, sort }) {
         <button
           className="btn btn-secondary dropdown-toggle"
           data-bs-toggle="dropdown"
-          data-bs-auto-close="outside"
           type="button"
         >
           Filters
@@ -33,6 +33,14 @@ function OptionsBar({ filters, sort }) {
           >
             <input type="checkbox" checked={filters.completed} readOnly></input>{" "}
             Completed
+          </button>
+          <button
+            className="dropdown-item"
+            type="button"
+            onClick={() => dispatch(toggleFilter({ filter: "today" }))}
+          >
+            <input type="checkbox" checked={filters.today} readOnly></input>{" "}
+            Today
           </button>
         </div>
       </div>
@@ -108,6 +116,10 @@ export default function ToDoList() {
     let shouldShow = true;
     if (!filters.completed) {
       if (task.completed) shouldShow = false;
+    }
+    if (filters.today) {
+      if (!datesAreOnSameDay(new Date(), new Date(task.date)))
+        shouldShow = false;
     }
     return shouldShow;
   });
