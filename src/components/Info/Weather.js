@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { WEATHER_API_URL } from "../../config";
 
 function WeatherDay({ day }) {
-  const date = new Date(day.time);
+  const dateArr = day.time.split("-"); //split input string into component parts
+  dateArr[1] = parseInt(dateArr[1], 10) - 1; //making the month value into an indexed value for the Date constructor
+  const date = new Date(...dateArr);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;
   return (
     <div className="day border border-primary">
