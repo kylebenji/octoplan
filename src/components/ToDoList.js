@@ -112,6 +112,26 @@ export default function ToDoList() {
     return shouldShow;
   });
 
+  //sort filtered list with specified sorting
+  const sortFunctions = new Map([
+    [sortStates.none, () => 1],
+    [
+      sortStates.date,
+      (task1, task2) => {
+        const date1 = task1.date
+          ? new Date(task1.date).getTime()
+          : config.MAX_TIMESTAMP;
+        const date2 = task2.date
+          ? new Date(task2.date).getTime()
+          : config.MAX_TIMESTAMP;
+        return date1 - date2;
+      },
+    ],
+    [sortStates.priorityHL, (task1, task2) => task1.priority - task2.priority],
+    [sortStates.priorityLH, (task1, task2) => task2.priority - task1.priority],
+  ]);
+  filteredList.sort(sortFunctions.get(filters.sortBy));
+
   //creating new task
   const handleNewTask = () => {
     dispatch(changeActive({ id: -1 }));

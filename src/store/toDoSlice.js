@@ -41,8 +41,12 @@ const toDoSlice = createSlice({
       state.list.push({
         id: state.idCounter,
         name: action.payload?.name,
-        date: new Date(action.payload?.date).toDateString(),
-        priority: +action.payload?.priority,
+        date: action.payload?.date
+          ? new Date(action.payload?.date).toDateString()
+          : "",
+        priority: action.payload.priority
+          ? +action.payload.priority
+          : config.MID_PRIORITY,
         notes: action.payload.notes,
       });
       state.active = state.idCounter;
@@ -55,7 +59,9 @@ const toDoSlice = createSlice({
       state.list[todoInd] = Object.assign({}, state.list[todoInd], {
         name: action.payload.name,
         date: new Date(action.payload?.date).toDateString(),
-        priority: action.payload.priority,
+        priority: action.payload.priority
+          ? action.payload.priority
+          : config.MID_PRIORITY,
         notes: action.payload.notes,
       });
     },

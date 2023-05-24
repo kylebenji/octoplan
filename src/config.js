@@ -8,3 +8,5 @@ export const TASK_CREATE = "TASK_CREATE";
 
 export const WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast";
 export const WEATHER_DAYS_SHOW = 5;
+
+export const MAX_TIMESTAMP = 8600000000000000; //for timestamps exceedingly far in the future, used for sorting
