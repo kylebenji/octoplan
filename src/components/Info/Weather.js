@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { parseInputDate } from "../../helpers";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
+//single day of weather
 function WeatherDay({ day }) {
   const date = parseInputDate(day.time);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;

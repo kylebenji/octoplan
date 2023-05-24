@@ -17,8 +17,9 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
+  const state = store.getState();
   saveState({
-    todos: store.getState().todos,
+    todos: { list: state.todos.list, idCounter: state.todos.idCounter },
     filters: store.getState().filters,
   });
 });

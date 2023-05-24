@@ -1,18 +1,13 @@
-/*
-actions:
-submit new task and save to store (add task to list, switch view, change current selected task)
-submit task edit (change information in task list, switch view, change current selected task)
-check off task
-*/
-
 import { createSlice } from "@reduxjs/toolkit";
 import * as config from "../config.js";
 import { datesAreOnSameDay, parseInputDate } from "../helpers.js";
 
+//handling and parsing input dates for to do list items
 const getActionDate = (date) => {
   return date ? parseInputDate(date).toDateString() : "";
 };
 
+//slice setup
 const toDoSlice = createSlice({
   name: "todos",
   initialState: {
@@ -20,6 +15,7 @@ const toDoSlice = createSlice({
     active: -1,
     date: new Date().getTime(),
     list: [
+      //this is just the test data that shows up when you open the app for the first time. Every time after the first this will be whatever info you've saved off to localstorage
       {
         id: 0,
         name: "Wash Dog",
@@ -54,6 +50,7 @@ const toDoSlice = createSlice({
       state.active = state.idCounter;
       state.idCounter++;
     },
+
     //editing an existing task
     editToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
@@ -66,11 +63,13 @@ const toDoSlice = createSlice({
         notes: action.payload.notes,
       });
     },
+
     //deleting a task
     deleteToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
       state.list.splice(todoInd, 1);
     },
+
     //setting a tasks completed flag
     toggleToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
@@ -79,6 +78,7 @@ const toDoSlice = createSlice({
         ? new Date().toDateString()
         : null;
     },
+
     //changing the selected todo
     changeActive: (state, action) => {
       state.active = action.payload.id;
@@ -99,9 +99,11 @@ export const selectTaskData = (state) => {
   const [tasksDueToday, tasksCompletedToday, tasksPastDue] =
     state.todos.list.reduce(
       (acc, task) => {
+        //getting pertinent dates
         const now = new Date();
         const taskDate = new Date(task.date);
         const taskCompletedDate = new Date(task.completedDate);
+
         if (task.completed) {
           if (datesAreOnSameDay(now, taskCompletedDate)) acc[1]++; //tasks completed today
         }
@@ -113,11 +115,13 @@ export const selectTaskData = (state) => {
           }
         }
 
+        //return whole array so the next iteration can read the updated data
         return acc;
       },
       [0, 0, 0]
     );
 
+  //return as an object so we can read discretely
   return {
     tasksDueToday,
     tasksCompletedToday,
