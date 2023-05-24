@@ -7,21 +7,20 @@ check off task
 
 import { createSlice } from "@reduxjs/toolkit";
 import * as config from "../config.js";
-
-const today = new Date().getTime();
+import { datesAreOnSameDay } from "../helpers.js";
 
 const toDoSlice = createSlice({
   name: "todos",
   initialState: {
     idCounter: 2,
     active: -1,
-    date: today,
+    date: new Date().getTime(),
     list: [
       {
         id: 0,
         name: "Wash Dog",
         completed: false,
-        date: new Date(today - 86400000).toDateString(),
+        date: new Date().toDateString(),
         priority: config.MID_PRIORITY,
         notes: "Wash dog with flea shampoo",
       },
@@ -29,7 +28,8 @@ const toDoSlice = createSlice({
         id: 1,
         name: "Feed Turtle",
         completed: true,
-        date: new Date(today).toDateString(),
+        completedDate: new Date().toDateString(),
+        date: new Date().toDateString(),
         priority: config.HIGH_PRIORITY,
         notes: "Feed turtle veggies with a hint of spice",
       },
@@ -68,6 +68,9 @@ const toDoSlice = createSlice({
     toggleToDo: (state, action) => {
       let todoInd = state.list.findIndex((el) => el.id === action.payload.id);
       state.list[todoInd].completed = !state.list[todoInd].completed;
+      state.list[todoInd].completedDate = state.list[todoInd].completed
+        ? new Date().toDateString()
+        : null;
     },
     //changing the selected todo
     changeActive: (state, action) => {
@@ -85,3 +88,32 @@ export default toDoSlice.reducer;
 export const selectList = (state) => state.todos.list;
 export const selectActive = (state) => state.todos.active;
 export const selectDate = (state) => state.todos.date;
+export const selectTaskData = (state) => {
+  const [tasksDueToday, tasksCompletedToday, tasksPastDue] =
+    state.todos.list.reduce(
+      (acc, task) => {
+        const now = new Date();
+        const taskDate = new Date(task.date);
+        const taskCompletedDate = new Date(task.completedDate);
+        if (task.completed) {
+          if (datesAreOnSameDay(now, taskCompletedDate)) acc[1]++; //tasks completed today
+        }
+        if (!task.completed) {
+          if (datesAreOnSameDay(now, taskDate)) {
+            acc[0]++; // tasks due today
+          } else if (now > taskDate) {
+            acc[2]++; //tasks past due
+          }
+        }
+
+        return acc;
+      },
+      [0, 0, 0]
+    );
+
+  return {
+    tasksDueToday,
+    tasksCompletedToday,
+    tasksPastDue,
+  };
+};

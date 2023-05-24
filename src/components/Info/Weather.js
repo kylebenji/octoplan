@@ -46,7 +46,6 @@ export default function Weather() {
 
   //function to parse returned data from API
   function buildDays(data) {
-    console.log(data);
     const dailyData = Object.entries(data.daily);
     const days = data.daily.time.map((time, i) => {
       return Object.fromEntries(dailyData.map((data) => [data[0], data[1][i]]));
