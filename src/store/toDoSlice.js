@@ -13,7 +13,6 @@ const toDoSlice = createSlice({
   initialState: {
     idCounter: 2,
     active: -1,
-    date: new Date().getTime(),
     list: [
       //this is just the test data that shows up when you open the app for the first time. Every time after the first this will be whatever info you've saved off to localstorage
       {
@@ -94,7 +93,6 @@ export default toDoSlice.reducer;
 //selectors
 export const selectList = (state) => state.todos.list;
 export const selectActive = (state) => state.todos.active;
-export const selectDate = (state) => state.todos.date;
 export const selectTaskData = (state) => {
   const [tasksDueToday, tasksCompletedToday, tasksPastDue] =
     state.todos.list.reduce(
