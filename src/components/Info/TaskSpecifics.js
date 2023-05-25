@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import {
+  faFloppyDisk,
+  faPenToSquare,
+} from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { selectView, openEdit, openDetails } from "../../store/detailsSlice";
 import * as config from "../../config";
@@ -12,6 +15,7 @@ import {
 } from "../../store/toDoSlice";
 import Select from "react-select";
 import { useState } from "react";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function formatPriority(priority) {
   switch (priority) {
@@ -126,8 +130,12 @@ function EditTask({ view }) {
             defaultValue={task?.notes ? task.notes : ""}
           ></textarea>
         </div>
-        <button id="task-buttons" type="submit" className="btn btn-primary">
-          Submit
+        <button
+          id="task-buttons"
+          type="submit"
+          className="btn btn-success d-flex align-items-center"
+        >
+          <FontAwesomeIcon icon={faFloppyDisk} /> Save
         </button>
       </form>
     </>
@@ -155,15 +163,15 @@ function TaskDetails() {
 
   return (
     <div>
-      <h3 className="text-center">
-        <FontAwesomeIcon icon={faPenToSquare} size="sm" /> Task Specifics
-      </h3>
+      <h2 className="text-center">Task Details</h2>
       {task ? (
         <>
-          <h6>{task.name}</h6>
-          {task.date ? <p>Date: {task.date}</p> : ""}
-          <p>Priority: {formatPriority(task.priority)}</p>
-          {task.notes ? <p>Notes: {task.notes}</p> : ""}
+          <h5>{task.name}</h5>
+          <div className="task-information">
+            {task.date ? <p>Date: {task.date}</p> : ""}
+            <p>Priority: {formatPriority(task.priority)}</p>
+            {task.notes ? <p>Notes: {task.notes}</p> : ""}
+          </div>
 
           <div id="task-buttons">
             <button
@@ -171,14 +179,14 @@ function TaskDetails() {
               className="btn btn-warning"
               onClick={handleEdit}
             >
-              edit
+              <FontAwesomeIcon icon={faPenToSquare} size="sm" /> Edit
             </button>
             <button
               type="button"
               className="btn btn-danger"
               onClick={handleDelete}
             >
-              delete
+              <FontAwesomeIcon icon={faTrash} /> Delete
             </button>
           </div>
         </>
@@ -192,7 +200,7 @@ function TaskDetails() {
 export default function TaskSpecifics() {
   const view = useSelector(selectView);
   return (
-    <div className="octoplan-container octoplan-small-container mb-3">
+    <div className="octoplan-container octoplan-small-container task-specifics-container mb-3">
       {view === config.TASK_DETAILS ? (
         <TaskDetails />
       ) : view === config.TASK_EDIT || view === config.TASK_CREATE ? (

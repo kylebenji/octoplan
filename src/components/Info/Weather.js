@@ -14,7 +14,7 @@ function WeatherDay({ day }) {
   const date = parseInputDate(day.time);
   const dateString = `${date.getMonth() + 1}/${date.getDate()}`;
   return (
-    <div className="weather-day border border-primary p-1">
+    <div className="weather-day border border-primary p-1 col rounded-1">
       <p>
         <FontAwesomeIcon icon={faCalendar} /> {dateString}
       </p>
@@ -85,7 +85,7 @@ export default function Weather() {
   return (
     <div>
       <h5>Forecast:</h5>
-      <div className="d-flex calendar">
+      <div className="d-flex calendar row mx-1">
         {weather.length
           ? weather.map((day, i) => <WeatherDay key={"day-" + i} day={day} />)
           : ""}

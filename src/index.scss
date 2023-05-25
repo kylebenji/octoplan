@@ -1,5 +1,8 @@
-$primary: rgb(0, 81, 128);
-$list-group-active-bg: rgb(125, 155, 255);
+$primary: rgb(2, 62, 172);
+$list-group-active-bg: rgb(199, 212, 253);
+$list-group-active-color: black;
+$warning: orange;
+$paragraph-margin-bottom: 0px;
 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
@@ -10,11 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  background: linear-gradient(45deg, rgb(207, 99, 207), rgb(64, 64, 224));
 }
 
 .App {
@@ -22,6 +21,19 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.header {
+  margin-top: 10px;
+
+  h1 {
+    color: $light;
+  }
+
+  .octopus-icon {
+    height: 48px;
+    filter: invert(100%);
+  }
 }
 
 .octoplan-container {
@@ -35,38 +47,111 @@ code {
 
   position: relative;
   display: block;
-}
+  background-color: $light-bg-subtle;
 
-.to-do-list-container {
-  height: 84vh;
-}
+  h2 {
+    margin-top: 5px;
+  }
 
-.octoplan-small-container {
-  height: 41.2vh;
-}
+  &.to-do-list-container {
+    height: 84vh;
 
-.octopus-icon {
-  height: 48px;
-}
+    #btn-new-task {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
 
-.completed {
-  filter: brightness(85%);
-}
+    .options-bar {
+      margin-bottom: 10px;
+      gap: 5px;
+    }
 
-.list-group-item {
-  transition: all 0.3s;
+    .list-group-item {
+      transition: all 0.3s;
 
-  .list-item-text {
-    margin-left: 10px;
+      .list-item-text {
+        margin-left: 4px;
+      }
+
+      .list-item-date {
+        margin-left: 8px;
+      }
+
+      .list-item-notes,
+      .list-item-date {
+        font-size: 0.8rem;
+        opacity: 80%;
+      }
+
+      .list-item-notes {
+        margin-left: auto;
+      }
+
+      .list-item-checkbox {
+        margin-left: 3px;
+      }
+
+      .list-item-checkbox:focus {
+        box-shadow: none;
+      }
+
+      .priority-icon {
+        position: absolute;
+        left: 5px;
+      }
+
+      &.completed {
+        filter: brightness(85%);
+      }
+    }
+  }
+
+  &.octoplan-small-container {
+    height: 41.2vh;
+
+    &.task-specifics-container {
+      .task-information {
+        margin-left: 6px;
+
+        p {
+          font-size: 1.1rem;
+          margin-bottom: 4px;
+        }
+      }
+
+      #task-buttons {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+
+        display: flex;
+        gap: 4px;
+      }
+    }
+
+    &.daily-info-container {
+      .daily-stats p {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+        margin-left: 6px;
+      }
+
+      .calendar {
+        gap: 10px;
+      }
+    }
   }
 }
 
 .form-part {
   @extend .row;
   margin-bottom: 5px;
+  margin-right: 4px;
 
   label {
     @extend .col-2;
+    font-size: 1.1rem;
   }
 
   input,
@@ -76,35 +161,7 @@ code {
   }
 }
 
-#task-buttons {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-#btn-new-task {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-p {
-  @extend .mb-0;
-}
-
 .footer {
   margin-bottom: 10px;
-}
-
-.header {
-  margin-top: 10px;
-}
-
-.calendar {
-  gap: 10px;
-}
-
-.options-bar {
-  margin-bottom: 10px;
-  gap: 5px;
+  color: $light;
 }

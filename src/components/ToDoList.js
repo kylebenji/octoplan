@@ -1,5 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownLong,
+  faArrowUpLong,
+  faBars,
+} from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectActive,
@@ -78,6 +82,12 @@ function ToDoItem({ item }) {
   const view = useSelector(selectView);
   const dispatch = useDispatch();
 
+  const formatItemDate = (date) => {
+    date = new Date(date);
+    if (datesAreOnSameDay(new Date(), date)) return "today";
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+
   return (
     <button
       className={`d-flex align-items-center list-group-item list-group-item-action${
@@ -90,10 +100,37 @@ function ToDoItem({ item }) {
     >
       <input
         type="checkbox"
+        className="list-item-checkbox form-check-input"
         checked={item.completed}
         onChange={() => dispatch(toggleToDo({ id: item.id }))}
       ></input>
+      {item.priority === config.HIGH_PRIORITY ? (
+        <FontAwesomeIcon
+          icon={faArrowUpLong}
+          size="sm"
+          color="red"
+          className="priority-icon"
+        />
+      ) : (
+        ""
+      )}
+      {item.priority === config.LOW_PRIORITY ? (
+        <FontAwesomeIcon
+          icon={faArrowDownLong}
+          size="sm"
+          color="blue"
+          className="priority-icon"
+        />
+      ) : (
+        ""
+      )}
       <p className="list-item-text">{item.name}</p>
+      {item.date ? (
+        <p className="list-item-date">{formatItemDate(item.date)}</p>
+      ) : (
+        ""
+      )}
+      {item.notes ? <p className="list-item-notes">{item.notes}</p> : ""}
     </button>
   );
 }
@@ -155,7 +192,7 @@ export default function ToDoList() {
       <div className="octoplan-container to-do-list-container">
         <header className="row text-center">
           <h2 className="">
-            <FontAwesomeIcon icon={faBars} size="sm" /> ToDoList
+            <FontAwesomeIcon icon={faBars} size="sm" /> To Do
           </h2>
         </header>
         <OptionsBar filters={filters} sort={{ sortStates }} />
@@ -166,10 +203,10 @@ export default function ToDoList() {
         </ul>
         <button
           id="btn-new-task"
-          className="btn btn-sm btn-primary"
+          className="btn btn-primary"
           onClick={handleNewTask}
         >
-          +
+          Create New +
         </button>
       </div>
     </div>
